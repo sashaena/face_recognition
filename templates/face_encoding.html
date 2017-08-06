@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Enroll New Member{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    body{
+      background-color: black;
+    }
+  </style>
+{% endblock %}
+{% block content%}
+     <form action ='' method = "POST" enctype="multipart/form-data" >
+     	<p><input type="file" name="file">
+     		<input type="submit" name="Upload">
+         <label for = "name">First Name</label><br>
+        {% if user %}
+         <input type = "text" name = "name" placeholder = "First Name" value="{{user['name']}}" /><br>
+        {% endif %}
+         <label for = "name">Last Name</label><br>
+        {% if user %} 
+         <input type = "text" name = "name" placeholder = "Last Name" /><br>
+        {% endif %} 
+         <label for = "email">Email Address</label><br>
+        {% if user %} 
+         <input type = "text" name = "email" placeholder = "Email" value="{{user['email_address']}}"/><br>
+        {% endif %} 
+         <label for = "phone">Phone Number</label><br>
+        {% if user %} 
+         <input type = "text" name = "phone_number" placeholder = "phone_number"  value="{{user['phone_number']}}" /><br>
+        {% endif %} 
+         <input type = "submit" value = "Submit" />
+      </form>
+{% endblock%}

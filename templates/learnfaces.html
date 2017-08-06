@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %} Learn New Faces{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    body{
+      background-color: #336699;
+    }
+  </style>
+{% endblock %}
+{% block content%}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">New Registration Form</h3>
+  </div>
+  <div>
+    <h3>Students (<a href = "{{ url_for('addnew') }}">Add Student
+         </a>)</h3>
+  </div>
+<div class="panel-body">
+    <form action="{{url_for('search')}}" method="GET">
+      <input type="text" placeholder="Search..." value="Search" name="query" required><input type="submit">
+      <a href="{{url_for('search')}}">Click me!</a>
+    </form>
+
+ {% with flashed_messages= get_flashed_messages() %}
+    {% if flashed_messages %}
+      <ul class="flashed_messages">
+        {% for flashed_message in flashed_messages %}
+          <li>{{ flashed_message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+ {% block body %}{% endblock %}
+{% endblock %}
+

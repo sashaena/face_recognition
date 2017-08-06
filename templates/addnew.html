@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Enroll New Member{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    body{
+      background-color: #336699;
+    }
+  </style>
+{% endblock %}
+{% block content%}
+       <form action ='' method = "POST" >
+         <label for = "name">First Name</label><br>
+         <input type = "text" name = "name" placeholder = "First Name" /><br>
+         <label for = "name">Last Name</label><br>
+         <input type = "text" name = "name" placeholder = "Last Name" /><br>
+         <label for = "email">Email Address</label><br>
+         <input type = "text" name = "city" placeholder = "Email" /><br>
+         <label for = "phone">Phone Number</label><br>
+         <input type = "text" name = "phone_number" placeholder = "phone_number" /><br>
+         <input type = "submit" value = "Submit" />
+
+{% endblock %}

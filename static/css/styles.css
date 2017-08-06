@@ -1,0 +1,19 @@
+
+/*Attendance.html*/
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+.addnew {
+	margin: 0;
+	padding: 0;
+	height:100%;
+	width: 100%;
+}
+.intro{
+	height: 100%;
+	width: 100%;
+	margin: auto;
+	background-color: black;
+	
+}
+

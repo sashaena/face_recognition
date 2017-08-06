@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Attendance{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    html, body {
+      margin: 0;
+      padding: 0;
+      height:100%;
+      width: 100%;
+      background: url('../static/images/asoriba.png'); 
+      /*{{url_for('static', filename='images/asoriba.png')}}*/
+      background-position: cover;*/
+}
+
+  </style>
+{% endblock %}
+{% block content%}
+  <section class="intro">
+    <div class="inner">
+      <div class='content'>
+        <input align='center' type="radio" name='option' action='POST'onclick="window.location ='learnfaces';">Learn faces</input>
+        <input type="radio" action='POST' name='option'onclick="window.location ='recognizefaces';">Recognize faces</input>
+      </div>
+    </div>  
+  </section>
+{% endblock %}
+

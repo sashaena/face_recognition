@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    body {
+      background-color: black;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+    .container{
+      vertical-align: middle;
+      display: table-cell;
+      max-height: none;
+
+    }
+
+    .login-form {
+      font: 16px/2em Lato, serif;
+      margin: 100px auto;
+      max-width: 400px;
+}
+
+    form[role=login] {
+      color: #5d5d5d;
+      background: #f2f2f2;
+      padding: 26px;
+      border-radius: 10px;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+}
+    form[role=login] img {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 35px;
+}
+    form[role=login] input,
+    form[role=login] button {
+      font-size: 18px;
+      margin: 16px 0;
+}
+    form[role=login] > div {
+      text-align: center;
+}
+  
+    .form-links {
+      text-align: center;
+      margin-top: 1em;
+      margin-bottom: 50px;
+}
+    .form-links a {
+      color: #fff;
+  }
+  </style>
+{% endblock %}
+{% block content%}
+  <section class="container">
+      <section class="login-form">
+        <form method="post" action="{{url_for('index')}}" role="login">
+          <img src="../static/images/asoriba.png" class="img-responsive" alt="" />
+          <input type="email" name="email" placeholder="Email" required class="form-control input-lg" />
+          <input type="password" name="password" placeholder="Password" required class="form-control input-lg" />
+          <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Sign in</button>
+        </form>
+      </section>
+  </section>
+{% endblock %}
+

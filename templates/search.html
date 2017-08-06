@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %} Search {% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    body{
+      background-color: #336699;
+    }
+  </style>
+{% endblock %}
+{% block content%}
+  {% for stuff in response %}
+  		<img src="{{stuff['thumbnail_30x30']}}" height="100px">
+	  		<li><a href="{{url_for('face_encoding', name=stuff['first_name'], email_address=stuff['email'],phone_number =
+	  		stuff['phone_no'], id=stuff['id'])}}"> {{stuff['first_name']}}
+  		{{stuff['last_name']}} </a></li>
+  {% endfor %}
+{% endblock %}
+
