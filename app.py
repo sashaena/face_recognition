@@ -1,26 +1,32 @@
 from flask import Flask, session, render_template, request, redirect, url_for, escape, flash
-import requests, os
+import requests, os, sys , face_recognition as fr
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 
-UPLOAD_FOLDER = 'images'
+
+UPLOADED_FOLDER = 'images'
 ALLOWED_EXTENTIONS = set(['jpg', 'jpeg'])
 
 # APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['UPLOAD_FOLDER'] = UPLOADED_FOLDER
 app.secret_key = os.urandom(24)
 db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    api_id = db.Column(db.Integer, unique=True)
     username = db.Column(db.String(80), unique=True)
     email = db.Column(db.String(120), unique=True)
+    face_encoding = db.Column(db.String, unique=True)
 
-    def __init__(self, username, email):
-        self.username = username
-        self.email = email
+    def __init__(self, api_id, username, email, face_encoding):
+    	self.api_id = api_id 
+    	self.username = username
+    	self.email = email
+    	self.face_encoding = face_encoding
 
     def __repr__(self):
         return '<User %r>' % self.username             
@@ -65,6 +71,13 @@ def learnfaces():
 			return render_template('learnfaces.html')
 	else:
 		return render_template('index.html')
+
+@app.route('/face_recognition')
+def face_recogntion():
+	if 'username' in session:
+		if 'auth_key' in session:
+			return render_template ('face_recognition.html')
+	return redirect(url_for('index.html'))
 	
 	
 @app.route('/search')
@@ -108,9 +121,9 @@ def allowed_file(filename):
 			filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENTIONS
 @app.route('/face_encoding', methods=['GET', 'POST'])
 def face_encoding():
+	print(request)
 	if 'username' in session:
 		if 'auth_key' in session:
-			# file = request.files['file']
 			if request.method == 'POST':
 				if 'file' not in request.files:
 					flash('File ZERO!!!')
@@ -120,10 +133,22 @@ def face_encoding():
 					if file.filename == '':
 						flash('No selected ZERO!!!!')
 						return redirect (request.url)
-					if file and allowed_file(filename):
+					if file and allowed_file(file.filename):
 						filename = secure_filename(file.filename)
-						file.save(os.path.join(app.config['UPLOADED_FOLDER'], filename))
-						return redirect(url_for('uploaded_file', filename=filename))
+						file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+						print('Requests!!!! : ', request.args['name'], request.args['id'], request.args['email_address'], request.args['phone_number'])
+						name = request.args['name']
+						email = request.args['email_address']
+						phone_number = request.args['phone_number']
+						api_id = request.args['id']
+						if email == '':
+							email = 'jane.doe@example.com'
+						if name == '':
+							name = 'janedoe'
+						if phone_number == '':
+							phone_number = '555-555-555'
+						face_encodings(file, name, api_id, email, phone_number)
+						# return redirect(url_for('uploaded_file', filename=filename))
 			return render_template('face_encoding.html')
 	return render_template('face_encoding.html')
 
@@ -137,7 +162,19 @@ def face_encoding():
 # # @app.route('/', methods=['GET', 'POST'])
 # # def upload_file():
 
+def face_encodings(file,name, api_id, email, phone_number):
+	filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+	image_file = fr.load_image_file(filename)
+	f_encodings = fr.face_encodings(image_file)[0]
+	print ("face encodings = " , f_encodings)
+	encodings_string = "|".join(map(str, f_encodings))
+	print("encoding string =", encodings_string)
 
+	# 'INSERT INTO user (api_id,username, email, face_encoding)'
+	user = User(api_id, phone_number, email, encodings_string)
+	db.session.add(user)
+	# print ('Database', cd)
+	db.session.commit()
 
 
 

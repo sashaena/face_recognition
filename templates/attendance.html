@@ -8,9 +8,17 @@
       padding: 0;
       height:100%;
       width: 100%;
-      background: url('../static/images/asoriba.png'); 
+      background: white;
+      /*background: url('../static/images/asoriba.png'); */
       /*{{url_for('static', filename='images/asoriba.png')}}*/
       background-position: cover;*/
+}
+    .content{
+      text-align: center;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
 }
 
   </style>
@@ -19,8 +27,10 @@
   <section class="intro">
     <div class="inner">
       <div class='content'>
+      <a target="_blank">
         <input align='center' type="radio" name='option' action='POST'onclick="window.location ='learnfaces';">Learn faces</input>
-        <input type="radio" action='POST' name='option'onclick="window.location ='recognizefaces';">Recognize faces</input>
+        <input type="radio" action='POST' name='option'onclick="window.location ='face_recognition';">Recognize faces</input>
+      </a>
       </div>
     </div>  
   </section>

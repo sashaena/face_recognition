@@ -4,7 +4,7 @@
   {{ super() }}
   <style type="text/css">
     body{
-      background-color: black;
+      background-color: white;
     }
   </style>
 {% endblock %}
@@ -14,11 +14,11 @@
      		<input type="submit" name="Upload">
          <label for = "name">First Name</label><br>
         {% if user %}
-         <input type = "text" name = "name" placeholder = "First Name" value="{{user['name']}}" /><br>
+         <input type = "text" name = "first_name" placeholder = "First Name" value="{{user['name']}}" /><br>
         {% endif %}
          <label for = "name">Last Name</label><br>
         {% if user %} 
-         <input type = "text" name = "name" placeholder = "Last Name" /><br>
+         <input type = "text" name = "last_name" placeholder = "Last Name" /><br>
         {% endif %} 
          <label for = "email">Email Address</label><br>
         {% if user %} 
